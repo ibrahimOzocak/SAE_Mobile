@@ -4,6 +4,7 @@ export './baseDonne/elemGetBd.dart';
 export './baseDonne/initBaseDonne.dart';
 export './baseDonne/elemAddBd.dart';
 export './baseDonne/elemDeleteBd.dart';
+export './baseDonne/elemUpdateBd.dart';
 
 export './object/Annonce.dart';
 export './object/Objet.dart';

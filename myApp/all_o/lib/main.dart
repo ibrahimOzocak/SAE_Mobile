@@ -14,8 +14,7 @@ void main() async {
   elemGetBd();
   elemAddBd();
   elemDeleteBd();
-
-
+  elemUpdateBd();
 
 /*
   List<Objet> objets = await elemGetBd.getObjets();
