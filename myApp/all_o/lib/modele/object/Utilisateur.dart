@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
-class User{
+class Utilisateur{
   String nomUser;
 
-  User({
+  Utilisateur({
     required this.nomUser
     });
 }
