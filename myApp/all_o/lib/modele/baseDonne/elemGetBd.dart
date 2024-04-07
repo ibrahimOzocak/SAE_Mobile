@@ -29,6 +29,32 @@ class elemGetBd {
     }
   }
 
+    static Future<List<Objet>> getObjetsFromUser(nomUser) async {
+    try{  
+      final response = await client
+          .from('OBJET')
+          .select()
+          .match({'NomUser': nomUser});
+
+      final List<dynamic> data = response;
+
+      // Récupération des objets depuis les données et création des instances de la classe Objet
+      final List<Objet> objets = data.map((objetData) {
+        return Objet(
+          id: objetData['Id_objet'] as int,
+          nomObjet: objetData['NomObjet'] as String,
+          idEtat: objetData['Id_Etat'] as int,
+          idCategorie: objetData['Id_Categorie'] as int,
+          nomUser: objetData['NomUser'] as String,
+        );
+      }).toList();
+
+      return objets;
+    }catch(e){
+      throw Exception('Erreur lors de la récupération des objets : $e');
+    }
+  }
+
   static Future<List<Reservation>> getReservation() async{
     try{
       final response = await client
@@ -52,11 +78,115 @@ class elemGetBd {
     }
   }
 
+    static Future<List<Reservation>> getReservationOfUser(nomUser) async{
+    try{
+      final response = await client
+          .from('RESERVATION')
+          .select()
+          .eq('NomUser', nomUser);
+
+      final List<dynamic> data = response;
+
+      // Récupération des réservations depuis les données et création des instances de la classe Reservation
+      final List<Reservation> reservations = data.map((reservationData) {
+        return Reservation(
+          id: reservationData['Id_Reservation'] as int,
+          nomUser: reservationData['NomUser'] as String,
+          idAnnonce: reservationData['Id_Annonce'] as int,
+        );
+      }).toList();
+
+      return reservations;
+    }catch(e){
+      throw Exception('Erreur lors de la récupération des réservations : $e');
+    }
+  }
+
+    static Future<List<Reservation>> getReservationWithAnnonce(id) async{
+    try{
+      final response = await client
+          .from('RESERVATION')
+          .select()
+          .eq('Id_Annonce', id);
+
+      final List<dynamic> data = response;
+
+      // Récupération des réservations depuis les données et création des instances de la classe Reservation
+      final List<Reservation> reservations = data.map((reservationData) {
+        return Reservation(
+          id: reservationData['Id_Reservation'] as int,
+          nomUser: reservationData['NomUser'] as String,
+          idAnnonce: reservationData['Id_Annonce'] as int,
+        );
+      }).toList();
+
+      return reservations;
+    }catch(e){
+      throw Exception('Erreur lors de la récupération des réservations : $e');
+    }
+  }
+
   static Future<List<Annonce>> getAnnonces() async {
     try{  
       final response = await client
           .from('ANNONCE')
           .select();
+
+      final List<dynamic> data = response;
+
+      // Récupération des annonces depuis les données et création des instances de la classe Annonce
+      final List<Annonce> annonces = data.map((annonceData) {
+        return Annonce(
+          id: annonceData['Id_Annonce'] as int,
+          titre: annonceData['Titre'] as String,
+          description: annonceData['Description'] as String,
+          dateDebut: annonceData['DateDebut'] as String,
+          dateFin: annonceData['DateFin'] as String,
+          nomUser: annonceData['NomUser'] as String,
+          idObjet: annonceData['Id_Objet'] as int,
+        );
+      }).toList();
+
+      return annonces;
+    }catch(e){
+      throw Exception('Erreur lors de la récupération des annonces : $e');
+    }
+  }
+
+  static Future<List<Annonce>> getAnnonceOfUser(nomUser) async {
+    try{  
+      final response = await client
+          .from('ANNONCE')
+          .select()
+          .eq('NomUser', nomUser);
+
+      final List<dynamic> data = response;
+
+      // Récupération des annonces depuis les données et création des instances de la classe Annonce
+      final List<Annonce> annonces = data.map((annonceData) {
+        return Annonce(
+          id: annonceData['Id_Annonce'] as int,
+          titre: annonceData['Titre'] as String,
+          description: annonceData['Description'] as String,
+          dateDebut: annonceData['DateDebut'] as String,
+          dateFin: annonceData['DateFin'] as String,
+          nomUser: annonceData['NomUser'] as String,
+          idObjet: annonceData['Id_Objet'] as int,
+        );
+      }).toList();
+
+      return annonces;
+    }catch(e){
+      throw Exception('Erreur lors de la récupération des annonces : $e');
+    }
+  }
+
+  static Future<List<Annonce>> getAnnonceFromObjet(id) async {
+    try{  
+      final response = await client
+          .from('ANNONCE')
+          .select()
+          .eq('Id_Objet', id);
 
       final List<dynamic> data = response;
 
@@ -187,6 +317,58 @@ class elemGetBd {
       final response = await client
           .from('AVIS')
           .select();
+
+      final List<dynamic> data = response;
+
+      // Récupération des avis depuis les données et création des instances de la classe Avis
+      final List<Avis> avis = data.map((avisData) {
+        return Avis(
+          id: avisData['Id_Avis'] as int,
+          message: avisData['Message'] as String,
+          nomUser: avisData['NomUser'] as String,
+          dateMessage: (avisData['DateMessage'] != null) ? DateTime.parse(avisData['DateMessage'] as String) : DateTime.now(),
+          idAnnonce: avisData['Id_Annonce'] as int,
+        );
+      }).toList();
+
+      return avis;
+    }catch(e){
+      throw Exception('Erreur lors de la récupération des avis : $e');
+    }
+  }
+
+  static Future<List<Avis>> getAvisWithAnnonce(idAnnonce) async {
+    try{  
+      final response = await client
+          .from('AVIS')
+          .select()
+          .eq('Id_Annonce', idAnnonce);
+
+      final List<dynamic> data = response;
+
+      // Récupération des avis depuis les données et création des instances de la classe Avis
+      final List<Avis> avis = data.map((avisData) {
+        return Avis(
+          id: avisData['Id_Avis'] as int,
+          message: avisData['Message'] as String,
+          nomUser: avisData['NomUser'] as String,
+          dateMessage: (avisData['DateMessage'] != null) ? DateTime.parse(avisData['DateMessage'] as String) : DateTime.now(),
+          idAnnonce: avisData['Id_Annonce'] as int,
+        );
+      }).toList();
+
+      return avis;
+    }catch(e){
+      throw Exception('Erreur lors de la récupération des avis : $e');
+    }
+  }
+
+static Future<List<Avis>> getAvisOfUser(nomUser) async {
+    try{  
+      final response = await client
+          .from('AVIS')
+          .select()
+          .eq('NomUser', nomUser);
 
       final List<dynamic> data = response;
 

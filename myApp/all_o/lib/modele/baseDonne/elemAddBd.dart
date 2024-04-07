@@ -27,9 +27,15 @@ class elemAddBd{
 
   static Future<void> addAnnonce(Annonce annonce) async {
     try{
+          // Vérifier si une annonce existe déjà avec cet objet
+    final objets = await elemGetBd.getAnnonceFromObjet(annonce.idObjet);
+    if (objets.isNotEmpty) {
+      throw Exception('Une annonce avec cet objet existe déjà.');
+    }
       DateTime dateDebut = DateTime.parse(annonce.dateDebut);
       DateTime dateFin = DateTime.parse(annonce.dateFin);
-      if(dateDebut.isBefore(dateFin)){
+      DateTime dateActuelle = DateTime.now();
+      if(dateDebut.isBefore(dateFin) && dateDebut.isAtSameMomentAs(dateActuelle) || dateDebut.isAfter(dateActuelle)){
         final response = await client
             .from('ANNONCE')
             .insert([
@@ -57,6 +63,16 @@ class elemAddBd{
 
   static Future<void> addUtilisateur(Utilisateur utilisateur) async {
     try {
+      final allUsers = await elemGetBd.getUsers();
+      // Vérifie si le nom d'utilisateur est déjà pris
+      if (allUsers.any((user) => user.nomUser == utilisateur.nomUser)) {
+        throw Exception('Erreur lors de l\'ajout de l\'utilisateur : Le nom d\'utilisateur est déjà pris');
+      }
+
+      // Vérifie si le nom d'utilisateur est vide
+      if (utilisateur.nomUser.isEmpty) {
+        throw Exception('Erreur lors de l\'ajout de l\'utilisateur : Le nom de l\'utilisateur est requis');
+      }
       final response = await client
           .from('USER')
           .insert([

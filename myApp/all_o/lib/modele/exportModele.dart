@@ -3,6 +3,7 @@ export 'package:supabase_flutter/supabase_flutter.dart';
 export './baseDonne/elemGetBd.dart';
 export './baseDonne/initBaseDonne.dart';
 export './baseDonne/elemAddBd.dart';
+export './baseDonne/elemDeleteBd.dart';
 
 export './object/Annonce.dart';
 export './object/Objet.dart';

@@ -13,12 +13,11 @@ void main() async {
 
   elemGetBd();
   elemAddBd();
+  elemDeleteBd();
 
 
-  Annonce a = Annonce(id: 5, titre: "Annonce1", description: "Description1", dateDebut: "2024-04-11", dateFin: "2024-04-10", nomUser: "MOM", idObjet: 1);
-  elemAddBd.addAnnonce(a);
 
-
+/*
   List<Objet> objets = await elemGetBd.getObjets();
   for(Objet objet in objets){
     print(objet.nomObjet);
@@ -29,7 +28,6 @@ void main() async {
     print(annonce.titre);
   }
   
-  /*
   List<Utilisateur> utilisateurs = await elemGetBd.getUsers();
   for(Utilisateur utilisateur in utilisateurs){
     print(utilisateur.nomUser);

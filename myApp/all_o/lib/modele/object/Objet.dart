@@ -12,8 +12,5 @@ class Objet{
     required this.idCategorie,
     required this.nomUser
     });
-
-    get getId => id;
-    get getNomObjet => nomObjet;
 }
 
