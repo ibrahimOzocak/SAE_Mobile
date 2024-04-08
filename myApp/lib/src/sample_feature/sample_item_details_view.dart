@@ -12,7 +12,7 @@ class SampleItemDetailsView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Item Details'),
       ),
-      body: const Center(
+      body: Center(
         child: Text('More Information Here'),
       ),
     );
