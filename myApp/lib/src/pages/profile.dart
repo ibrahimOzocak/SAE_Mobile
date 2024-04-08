@@ -22,7 +22,7 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("profile de ${prefs.pseudos}"),
+        title: Text("objets de ${prefs.pseudos}"),
       ),
       body: FutureBuilder<List<Objet>>(
         future: elemGetBd.getObjetsFromUser(prefs.pseudos),

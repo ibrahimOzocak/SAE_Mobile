@@ -17,6 +17,9 @@ import 'src/sample_feature/sample_item_list_view.dart';
 import 'src/settings/settings_view.dart';
 import 'src/pages/home.dart';
 import 'src/pages/profile.dart';
+import 'src/pages/mesReservations.dart';
+import 'src/pages/detailAnnonce.dart';
+
 import 'package:all_o/modele/sharedPreferences/settingModel.dart';
 void main() async {
 
@@ -24,27 +27,31 @@ void main() async {
   elemAddBd();
   elemDeleteBd();
   SettingViewModel prefs = SettingViewModel();
-
+/*
   List<Objet> objets = await elemGetBd.getObjets();
   for(Objet objet in objets){
-    print(objet.nomObjet);
-  }
-
+    print(objet.id);
+  }*/
+//Pour ajouter une annonce
+  //await elemAddBd.addAnnonce(Annonce(id: 3,titre: "Ma 2eme super Annonce", description: "une 2eme annonce de test", dateDebut: "2025-04-08", dateFin :"2025-04-06", nomUser : "Jean", idObjet: 2));
   List<Annonce> annonces = await elemGetBd.getAnnoncesSansReservation();
   for(Annonce annonce in annonces){
-    print(annonce.titre);
+    print(annonce.id);
   }
+/*
 
   List<Utilisateur> utilisateurs = await elemGetBd.getUsers();
   for(Utilisateur utilisateur in utilisateurs){
     print(utilisateur.nomUser);
   }
-
+*/
+//Ligne pour rajouter une réservation
+  //await elemAddBd.addReservation(Reservation(id:1, nomUser: "Jean", idAnnonce: 1));
   List<Reservation> reservations = await elemGetBd.getReservation();
   for(Reservation reservation in reservations){
     print(reservation.idAnnonce);
   }
-
+/*
   List<Etat> etats = await elemGetBd.getEtats();
   for(Etat etat in etats){
     print(etat.nomEtat);
@@ -59,7 +66,7 @@ void main() async {
   for(Avis avi in avis){
     print(avi);
   }
-
+*/
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   final settingsController = SettingsController(SettingsService());
@@ -143,6 +150,10 @@ class MyApp extends StatelessWidget {
                       return SampleItemListView(prefs: prefs);
                     case ProfileView.routeName:
                       return ProfileView(prefs: prefs);
+                    case ReservationView.routeName:
+                      return ReservationView(prefs: prefs);
+                    case DetailAnnonceView.routeName:
+                      return DetailAnnonceView(prefs: prefs);
                     default:
                       return Home(prefs: prefs);
                   }

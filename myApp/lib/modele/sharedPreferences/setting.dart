@@ -15,6 +15,14 @@ class SettingRepository{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString(PSEUDO_KEY);
   }
+  saveIdAnnonce(int value) async {
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setInt("idAnnonce", value);
+    }
+  Future<int?> getIdAnnonce() async {
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      return sharedPreferences.getInt("idAnnonce");
+    }
 
   clearSettings() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

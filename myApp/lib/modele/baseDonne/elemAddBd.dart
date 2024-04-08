@@ -35,6 +35,7 @@ class elemAddBd{
       DateTime dateDebut = DateTime.parse(annonce.dateDebut);
       DateTime dateFin = DateTime.parse(annonce.dateFin);
       DateTime dateActuelle = DateTime.now();
+      print(dateFin);
       if(dateDebut.isBefore(dateFin) && dateDebut.isAtSameMomentAs(dateActuelle) || dateDebut.isAfter(dateActuelle)){
         final response = await client
             .from('ANNONCE')

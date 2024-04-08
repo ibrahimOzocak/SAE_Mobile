@@ -208,6 +208,33 @@ class elemGetBd {
       throw Exception('Erreur lors de la récupération des annonces : $e');
     }
   }
+  static Future<Annonce> getAnnonceById(id) async {
+    try {
+      final response = await client
+          .from('ANNONCE')
+          .select()
+          .eq('Id_Annonce', id)
+          .single(); // Utilisation de la méthode single() pour récupérer un seul enregistrement
+
+      final annonceData = response; // L'enregistrement unique est directement récupéré
+
+      // Création de l'instance de la classe Annonce à partir des données récupérées
+      final Annonce annonce = Annonce(
+        id: annonceData['Id_Annonce'] as int,
+        titre: annonceData['Titre'] as String,
+        description: annonceData['Description'] as String,
+        dateDebut: annonceData['DateDebut'] as String,
+        dateFin: annonceData['DateFin'] as String,
+        nomUser: annonceData['NomUser'] as String,
+        idObjet: annonceData['Id_Objet'] as int,
+      );
+
+      return annonce; // Renvoi de l'objet Annonce
+    } catch (e) {
+      throw Exception('Erreur lors de la récupération de l\'annonce : $e');
+    }
+  }
+
 
   static Future<List<Annonce>> getAnnoncesSansReservation() async {
   try {

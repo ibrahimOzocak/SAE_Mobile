@@ -9,6 +9,10 @@ import 'package:all_o/modele/sharedPreferences/settingModel.dart';
 import 'package:provider/provider.dart';
 import 'package:all_o/main.dart';
 import '../pages/profile.dart';
+import '../pages/mesReservations.dart';
+import '../pages/detailAnnonce.dart';
+
+
 
 /// Displays a list of SampleItems.
 class SampleItemListView extends StatelessWidget {
@@ -18,9 +22,21 @@ class SampleItemListView extends StatelessWidget {
   }) : super(key: key);
 
   final SettingViewModel prefs;
-
+  int _selectedIndex = 0;
   static const routeName = '/Annonces';
 
+
+  void _onItemTapped(BuildContext context, int index) {
+    if(index == 0){
+        Navigator.restorablePushNamed(context, SampleItemListView.routeName);
+    }
+    else if(index == 1){
+
+    }
+    else if(index == 2){
+        Navigator.restorablePushNamed(context, ReservationView.routeName);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,18 +46,21 @@ class SampleItemListView extends StatelessWidget {
         actions: [
           IconButton(
                     icon: const Icon(Icons.person),
+                    tooltip: 'Objets',
                     onPressed: () {
                       Navigator.restorablePushNamed(context, ProfileView.routeName);
                     },
                   ),
           IconButton(
             icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
             onPressed: () {
               Navigator.restorablePushNamed(context, SettingsView.routeName);
             },
           ),
           IconButton(
             icon: const Icon(Icons.logout),
+            tooltip: 'logout',
             onPressed: () {
               Navigator.restorablePushNamed(context, Home.routeName);
             },
@@ -67,9 +86,10 @@ class SampleItemListView extends StatelessWidget {
                     foregroundImage: AssetImage('assets/images/flutter_logo.png'),
                   ),
                   onTap: () {
+                    prefs.annonce = item.id;
                     Navigator.restorablePushNamed(
                       context,
-                      SampleItemDetailsView.routeName,
+                      DetailAnnonceView.routeName,
                     );
                   },
                 );
@@ -81,8 +101,10 @@ class SampleItemListView extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: Colors.green,
               unselectedItemColor: Colors.grey,
-              currentIndex: 0,
-
+              currentIndex: _selectedIndex,
+              onTap: (index) {
+                _onItemTapped(context, index);
+              },
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.article),
