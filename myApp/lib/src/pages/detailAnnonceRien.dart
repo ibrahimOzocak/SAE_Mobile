@@ -8,15 +8,15 @@ import 'package:provider/provider.dart';
 import 'package:all_o/main.dart';
 
 /// Displays a list of SampleItems.
-class DetailAnnonceView extends StatelessWidget {
-  DetailAnnonceView({
+class DetailAnnonceRienView extends StatelessWidget {
+  DetailAnnonceRienView({
     Key? key,
     required this.prefs,
   }) : super(key: key);
 
   final SettingViewModel prefs;
 
-  static const routeName = '/DetailAnnonce';
+  static const routeName = '/DetailAnnonceRien';
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +75,6 @@ class DetailAnnonceView extends StatelessWidget {
                        },
                      ),
                  SizedBox(height: 20), // Espace supplémentaire
-                 ElevatedButton(
-                   onPressed: () {
-                     elemAddBd.addReservation(Reservation(id: prefs.idAnnonces, nomUser: prefs.pseudos, idAnnonce : prefs.idAnnonces));
-                   },
-                   child: Text('Prêter'),
-                 ),
                ],
              ),
            );

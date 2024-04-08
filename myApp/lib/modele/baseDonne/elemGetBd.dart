@@ -29,6 +29,31 @@ class elemGetBd {
     }
   }
 
+  static Future<Objet> getObjetById(int id) async {
+    try {
+      final response = await client
+        .from('OBJET')
+        .select()
+        .eq('Id_objet', id)
+        .single(); // Utilisation de la méthode single() pour récupérer un seul enregistrement
+
+      final objetData = response; // L'enregistrement unique est directement récupéré
+
+      // Création de l'instance de la classe Objet à partir des données récupérées
+      final Objet objet = Objet(
+        id: objetData['Id_objet'] as int,
+        nomObjet: objetData['NomObjet'] as String,
+        idEtat: objetData['Id_Etat'] as int,
+        idCategorie: objetData['Id_Categorie'] as int,
+        nomUser: objetData['NomUser'] as String,
+      );
+
+      return objet; // Renvoi de l'objet Objet
+    } catch (e) {
+      throw Exception('Erreur lors de la récupération de l\'objet : $e');
+    }
+  }
+
     static Future<List<Objet>> getObjetsFromUser(nomUser) async {
     try{  
       final response = await client

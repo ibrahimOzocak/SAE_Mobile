@@ -17,8 +17,13 @@ import 'src/sample_feature/sample_item_list_view.dart';
 import 'src/settings/settings_view.dart';
 import 'src/pages/home.dart';
 import 'src/pages/profile.dart';
-import 'src/pages/mesReservations.dart';
+import 'src/pages/mesPret.dart';
 import 'src/pages/detailAnnonce.dart';
+import 'package:all_o/src/pages/detailAnnonceEnlever.dart';
+import 'package:all_o/src/pages/creerAnnonce.dart';
+import 'package:all_o/src/pages/mesReservation.dart';
+import 'package:all_o/src/pages/detailAnnonceRien.dart';
+
 
 import 'package:all_o/modele/sharedPreferences/settingModel.dart';
 void main() async {
@@ -33,7 +38,7 @@ void main() async {
     print(objet.id);
   }*/
 //Pour ajouter une annonce
-  //await elemAddBd.addAnnonce(Annonce(id: 3,titre: "Ma 2eme super Annonce", description: "une 2eme annonce de test", dateDebut: "2025-04-08", dateFin :"2025-04-06", nomUser : "Jean", idObjet: 2));
+  //await elemAddBd.addAnnonce(Annonce(id: 2,titre: "Ma 2eme super Annonce", description: "une 2eme annonce de test", dateDebut: "2025-04-08", dateFin :"2025-04-06", nomUser : "Jean", idObjet: 1));
   List<Annonce> annonces = await elemGetBd.getAnnoncesSansReservation();
   for(Annonce annonce in annonces){
     print(annonce.id);
@@ -150,10 +155,18 @@ class MyApp extends StatelessWidget {
                       return SampleItemListView(prefs: prefs);
                     case ProfileView.routeName:
                       return ProfileView(prefs: prefs);
-                    case ReservationView.routeName:
-                      return ReservationView(prefs: prefs);
+                    case PretView.routeName:
+                      return PretView(prefs: prefs);
                     case DetailAnnonceView.routeName:
                       return DetailAnnonceView(prefs: prefs);
+                    case DetailAnnonceEnleverView.routeName:
+                      return DetailAnnonceEnleverView(prefs: prefs);
+                    case CreerAnnonceView.routeName:
+                      return CreerAnnonceView(prefs: prefs);
+                    case DetailAnnonceRienView.routeName:
+                      return DetailAnnonceRienView(prefs: prefs);
+                    case ReservationView.routeName:
+                      return ReservationView(prefs: prefs);
                     default:
                       return Home(prefs: prefs);
                   }

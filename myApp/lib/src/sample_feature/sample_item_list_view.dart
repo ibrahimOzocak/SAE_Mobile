@@ -9,8 +9,10 @@ import 'package:all_o/modele/sharedPreferences/settingModel.dart';
 import 'package:provider/provider.dart';
 import 'package:all_o/main.dart';
 import '../pages/profile.dart';
-import '../pages/mesReservations.dart';
+import '../pages/mesPret.dart';
 import '../pages/detailAnnonce.dart';
+import 'package:all_o/src/pages/creerAnnonce.dart';
+import 'package:all_o/src/pages/mesReservation.dart';
 
 
 
@@ -31,11 +33,15 @@ class SampleItemListView extends StatelessWidget {
         Navigator.restorablePushNamed(context, SampleItemListView.routeName);
     }
     else if(index == 1){
-
+        Navigator.restorablePushNamed(context, CreerAnnonceView.routeName);
     }
     else if(index == 2){
-        Navigator.restorablePushNamed(context, ReservationView.routeName);
+        Navigator.restorablePushNamed(context, PretView.routeName);
     }
+    else if(index == 3){
+              Navigator.restorablePushNamed(context, ReservationView.routeName);
+          }
+
   }
   @override
   Widget build(BuildContext context) {
@@ -81,7 +87,7 @@ class SampleItemListView extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final item = items[index];
                 return ListTile(
-                  title: Text('Annonce ${item.titre}'),
+                  title: Text(' ${item.titre}'),
                   leading: const CircleAvatar(
                     foregroundImage: AssetImage('assets/images/flutter_logo.png'),
                   ),
@@ -116,11 +122,11 @@ class SampleItemListView extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.article),
-                  label: 'Réservations',
+                  label: 'Mes prêts',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.article),
-                  label: 'Mes prêts',
+                  label: 'Réservations',
                 ),
               ],
             ),

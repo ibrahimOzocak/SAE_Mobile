@@ -7,9 +7,12 @@ import 'package:provider/provider.dart';
 import 'package:all_o/main.dart';
 import 'package:all_o/src/sample_feature/sample_item_list_view.dart';
 import 'package:all_o/src/pages/detailAnnonce.dart';
+import 'package:all_o/src/pages/detailAnnonceRien.dart';
+import 'package:all_o/src/pages/creerAnnonce.dart';
+import 'package:all_o/src/pages/mesReservation.dart';
 
-class ReservationView extends StatelessWidget {
-  ReservationView({
+class PretView extends StatelessWidget {
+  PretView({
     Key? key,
     required this.prefs,
   }) : super(key: key);
@@ -17,7 +20,7 @@ class ReservationView extends StatelessWidget {
 
   final SettingViewModel prefs;
 
-  static const routeName = '/Reservation';
+  static const routeName = '/Pret';
 
   Future<List<Annonce>> getAnnonceWithReservation(List<Reservation> ids) async {
     List<Annonce> liste = [];
@@ -34,19 +37,24 @@ class ReservationView extends StatelessWidget {
           Navigator.restorablePushNamed(context, SampleItemListView.routeName);
       }
       else if(index == 1){
-
+        Navigator.restorablePushNamed(context, CreerAnnonceView.routeName);
       }
       else if(index == 2){
-          Navigator.restorablePushNamed(context, ReservationView.routeName);
+          Navigator.restorablePushNamed(context, PretView.routeName);
       }
+      else if(index == 3){
+                Navigator.restorablePushNamed(context, ReservationView.routeName);
+            }
+
 
     }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile de ${prefs.pseudos}"),
+    appBar: AppBar(
+            title: Text("Mes Prêts"),
+            automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<Reservation>>(
         future: elemGetBd.getReservationOfUser(prefs.pseudos),
@@ -76,9 +84,10 @@ class ReservationView extends StatelessWidget {
                           foregroundImage: AssetImage('assets/images/flutter_logo.png'),
                         ),
                         onTap: () {
+                        prefs.annonce = item.id;
                           Navigator.restorablePushNamed(
                                                 context,
-                                                DetailAnnonceView.routeName,
+                                                DetailAnnonceRienView.routeName,
                                               );
                         },
                       );
@@ -108,11 +117,11 @@ class ReservationView extends StatelessWidget {
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(Icons.article),
-                        label: 'Réservations',
+                        label: 'Mes prêts',
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(Icons.article),
-                        label: 'Mes prêts',
+                        label: 'Réservations',
                       ),
                     ],
                   ),
